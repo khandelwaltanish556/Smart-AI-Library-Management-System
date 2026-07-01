@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2 class="text-center mb-4">Library Dashboard</h2>
+
+    <!-- Stats Cards -->
+    <div class="row">
+
+        <!-- Total Books -->
+        <div class="col-md-3 mb-3">
+            <div class="card text-white bg-primary shadow">
+                <div class="card-body text-center">
+                    <h5>Total Books</h5>
+                    <h2>{{ total_books }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Members -->
+        <div class="col-md-3 mb-3">
+            <div class="card text-white bg-success shadow">
+                <div class="card-body text-center">
+                    <h5>Total Members</h5>
+                    <h2>{{ total_members }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Issued Books -->
+        <div class="col-md-3 mb-3">
+            <div class="card text-white bg-warning shadow">
+                <div class="card-body text-center">
+                    <h5>Issued Books</h5>
+                    <h2>{{ issued_books }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Available Books -->
+        <div class="col-md-3 mb-3">
+            <div class="card text-white bg-danger shadow">
+                <div class="card-body text-center">
+                    <h5>Available Books</h5>
+                    <h2>{{ available_books }}</h2>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="row mt-4">
+
+        <div class="col-md-4 mb-3">
+            <a href="/books" class="btn btn-outline-primary w-100 p-3">
+                📚 Manage Books
+            </a>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <a href="/member" class="btn btn-outline-success w-100 p-3">
+                👥 Manage Members
+            </a>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <a href="/issue_books" class="btn btn-outline-warning w-100 p-3">
+                📖 Issue Books
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

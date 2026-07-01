@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}
+        Smart Library Management System
+        {% endblock %}
+    </title>
+
+    <!-- Bootstrap 5 -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Custom CSS -->
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    {% block css %}
+    {% endblock %}
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+
+        body{
+            background:#f4f7fc;
+            font-family:'Segoe UI',sans-serif;
+            overflow-x:hidden;
+        }
+
+        /* ==========================
+           SIDEBAR
+        ========================== */
+
+        .sidebar{
+            position:fixed;
+            top:0;
+            left:-270px;
+            width:260px;
+            height:100vh;
+            background:#0f172a;
+            overflow-y:auto;
+            transition:0.3s;
+            z-index:1500;
+        }
+
+        .sidebar.active{
+            left:0;
+        }
+
+        .sidebar::-webkit-scrollbar{
+            width:5px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb{
+            background:#2563eb;
+        }
+
+        .logo{
+            text-align:center;
+            padding:20px;
+            border-bottom:1px solid rgba(255,255,255,.1);
+        }
+
+        .logo img{
+            width:70px;
+            margin-bottom:10px;
+        }
+
+        .logo h3{
+            color:white;
+            margin:0;
+            font-size:22px;
+            font-weight:600;
+        }
+
+        .sidebar ul{
+            list-style:none;
+            padding:15px 0;
+            margin:0;
+        }
+
+        .sidebar ul li{
+            margin:3px 0;
+        }
+
+        .sidebar ul li a{
+            display:block;
+            padding:13px 22px;
+            color:white;
+            text-decoration:none;
+            transition:.3s;
+            font-size:15px;
+        }
+
+        .sidebar ul li a i{
+            width:25px;
+        }
+
+        .sidebar ul li a:hover{
+            background:#2563eb;
+            border-left:5px solid white;
+        }
+
+        /* ==========================
+           MAIN CONTENT
+        ========================== */
+
+
+        .main-content{
+            margin-left:0;
+            transition:0.3s;
+        }
+
+        /* ==========================
+           NAVBAR
+        ========================== */
+
+        .top-navbar{
+            background:white;
+            padding:15px 25px;
+            box-shadow:0 2px 15px rgba(0,0,0,.08);
+            position:sticky;
+            top:0;
+            z-index:999;
+        }
+
+        .top-navbar h4{
+            margin:0;
+            font-weight:600;
+        }
+
+        .top-navbar .form-control{
+            width:250px;
+        }
+
+        .top-navbar .btn-light{
+            border:1px solid #ddd;
+        }
+
+        .dropdown-menu{
+            border:none;
+            box-shadow:0 5px 20px rgba(0,0,0,.1);
+        }
+
+        /* ==========================
+           PAGE CONTENT
+        ========================== */
+
+        .page-content{
+            padding:25px;
+        }
+
+        /* ==========================
+           DASHBOARD CARDS
+        ========================== */
+
+        .dashboard-card{
+            border:none;
+            border-radius:15px;
+            padding:20px;
+            color:white;
+            box-shadow:0 4px 12px rgba(0,0,0,.08);
+        }
+
+        .dashboard-card h2{
+            font-weight:700;
+        }
+
+        .dashboard-card i{
+            font-size:35px;
+        }
+
+        .bg-blue{
+            background:#2563eb;
+        }
+
+        .bg-green{
+            background:#22c55e;
+        }
+
+        .bg-red{
+            background:#ef4444;
+        }
+
+        .bg-purple{
+            background:#7c3aed;
+        }
+
+        /* ==========================
+           TABLES
+        ========================== */
+
+        .table{
+            background:white;
+            border-radius:10px;
+            overflow:hidden;
+            box-shadow:0 2px 10px rgba(0,0,0,.05);
+        }
+
+        .table thead{
+            background:#0f172a;
+            color:white;
+        }
+
+        /* ==========================
+           CARDS
+        ========================== */
+
+        .card{
+            border:none;
+            border-radius:15px;
+            box-shadow:0 3px 15px rgba(0,0,0,.08);
+        }
+
+        /* ==========================
+           BUTTONS
+        ========================== */
+
+        .btn-primary{
+            background:#2563eb;
+            border:none;
+        }
+
+        .btn-primary:hover{
+            background:#1d4ed8;
+        }
+
+        /* ==========================
+           FOOTER
+        ========================== */
+
+        .footer{
+            background:#0f172a;
+            color:white;
+            padding:20px;
+            text-align:center;
+            margin-top:50px;
+        }
+
+        /* ==========================
+           MOBILE RESPONSIVE
+        ========================== */
+
+        @media(max-width:768px){
+
+            .sidebar{
+                width:80px;
+            }
+
+            .logo h3{
+                display:none;
+            }
+
+            .sidebar ul li a{
+                text-align:center;
+                font-size:12px;
+                padding:15px 5px;
+            }
+
+            .sidebar ul li a span{
+                display:none;
+            }
+
+            .main-content{
+                margin-left:80px;
+            }
+
+            .top-navbar .form-control{
+                width:120px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+    <!-- ==========================
+         SIDEBAR
+    ========================== -->
+
+    <!-- Sidebar Toggle Button -->
+<button id="menu-btn" class="btn btn-primary position-fixed"
+        style="top:15px;left:15px;z-index:2000;">
+    <i class="fas fa-bars"></i>
+</button>
+
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+
+    <div class="logo">
+
+        <img src="https://cdn-icons-png.flaticon.com/512/2232/2232688.png"
+             alt="Logo">
+
+        <h3>Library AI</h3>
+
+    </div>
+
+    <ul>
+
+        <!-- Tumhara pura menu yaha same rahega -->
+         <li>
+    <a href="/">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+    </a>
+</li>
+
+
+
+<!-- ADMIN MENU -->
+
+{% if session.get('role') == 'admin' %}
+
+<li>
+    <a href="/dashboard">
+        <i class="fas fa-chart-line"></i>
+        <span>Dashboard</span>
+    </a>
+</li>
+
+<li>
+    <a href="/member">
+        <i class="fas fa-users"></i>
+        <span>Members</span>
+    </a>
+</li>
+
+<li>
+    <a href="/add_member">
+        <i class="fas fa-user-plus"></i>
+        <span>Add Member</span>
+    </a>
+</li>
+
+<li>
+    <a href="/books">
+        <i class="fas fa-book"></i>
+        <span>Books</span>
+    </a>
+</li>
+
+<li>
+    <a href="/add_books">
+        <i class="fas fa-plus-circle"></i>
+        <span>Add Book</span>
+    </a>
+</li>
+
+<li>
+    <a href="/return_book">
+        <i class="fas fa-undo"></i>
+        <span>Return Book</span>
+    </a>
+</li>
+
+<li>
+    <a href="/attendance">
+        <i class="fas fa-calendar-check"></i>
+        <span>Attendance</span>
+    </a>
+</li>
+
+<li>
+    <a href="/attendance_report">
+        <i class="fas fa-file-lines"></i>
+        <span>Attendance Report</span>
+    </a>
+</li>
+
+<li>
+    <a href="/notices">
+        <i class="fas fa-bullhorn"></i>
+        <span>Notices</span>
+    </a>
+</li>
+
+<li>
+    <a href="/careers">
+        <i>💼</i>
+        <span>Careers</span>
+    </a>
+</li>
+
+<li>
+    <a href="/service">
+        <i>📚</i>
+        <span>Services</span>
+    </a>
+</li>
+
+
+<li>
+    <a href="/chatbot">
+        <i class="fas fa-robot"></i>
+        <span>Chatbot</span>
+    </a>
+</li>
+
+<li>
+    <a href="/analytics">
+        <i class="fas fa-chart-pie"></i>
+        <span>Analytics</span>
+    </a>
+</li>
+
+<li>
+    <a href="/reports">
+        <i class="fas fa-file-pdf"></i>
+        <span>Reports</span>
+    </a>
+</li>
+
+<li>
+    <a href="/pay_fee">
+        <i class="fas fa-money-bill"></i>
+        <span>Fee Payment</span>
+    </a>
+</li>
+
+<li>
+    <a href="/fee_history">
+        <i class="fas fa-clock-rotate-left"></i>
+        <span>Fee History</span>
+    </a>
+</li>
+
+{% endif %}
+
+
+<!-- MEMBER MENU -->
+
+{% if session.get('role') == 'member' %}
+
+<li>
+    <a href="/books">
+        <i class="fas fa-book"></i>
+        <span>Books</span>
+    </a>
+</li>
+
+<li>
+    <a href="/attendance">
+        <i class="fas fa-calendar-check"></i>
+        <span>Attendance</span>
+    </a>
+</li>
+
+<li>
+    <a href="/attendance_report">
+        <i class="fas fa-file-lines"></i>
+        <span>My Attendance</span>
+    </a>
+</li>
+
+<li>
+    <a href="/notices">
+        <i class="fas fa-bullhorn"></i>
+        <span>Notices</span>
+    </a>
+</li>
+
+<li>
+    <a href="/careers">
+        <i class="fas fa-bullhorn"></i>
+        <span>Careers</span>
+    </a>
+</li>
+
+<li>
+    <a href="/service">
+        <i class="fas fa-bullhorn"></i>
+        <span>Services</span>
+    </a>
+</li>
+
+<li>
+    <a href="/chatbot">
+        <i class="fas fa-robot"></i>
+        <span>Chatbot</span>
+    </a>
+</li>
+
+<li>
+    <a href="/pay_fee">
+        <i class="fas fa-money-bill"></i>
+        <span>Pay Fee</span>
+    </a>
+</li>
+
+<li>
+    <a href="/fee_history">
+        <i class="fas fa-history"></i>
+        <span>Fee History</span>
+    </a>
+</li>
+
+{% endif %}
+
+<li>
+    <a href="/logout" class="text-danger">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
+    </a>
+</li>
+
+
+
+    </ul>
+
+</div>
+        
+    
+
+    <!-- ==========================
+         MAIN CONTENT
+    ========================== -->
+
+    <div class="main-content">
+
+        <!-- Navbar -->
+
+        <div class="top-navbar d-flex justify-content-between align-items-center">
+
+            <div>
+
+                <h5>Library AI</h5>
+
+            </div>
+            
+
+            <div class="d-flex align-items-center">
+
+                <form action="{{ url_for('books') }}" method="GET" class="me-3">
+
+                    <div class="input-group">
+
+                        <input type="text"
+                               class="form-control"
+                               placeholder="Search...">
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary">
+
+                            <i class="fas fa-search"></i>
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+                <button class="btn btn-light position-relative me-3">
+
+                    <i class="fas fa-bell"></i>
+
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        3
+                    </span>
+
+                </button>
+
+                <div class="dropdown">
+
+                    <button class="btn btn-light dropdown-toggle"
+                            data-bs-toggle="dropdown">
+
+                        <i class="fas fa-user-circle"></i>
+                        Admin
+
+                    </button>
+
+                    <ul class="dropdown-menu dropdown-menu-end">
+
+                        <li>
+                            <a class="dropdown-item"
+                               href="/profile">
+                                Profile
+                            </a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item"
+                               href="/settings">
+                                Settings
+                            </a>
+                        </li>
+
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item text-danger"
+                               href="/logout">
+                                Logout
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Flash Messages -->
+
+        <div class="page-content">
+
+            {% with messages = get_flashed_messages() %}
+
+                {% if messages %}
+
+                    {% for message in messages %}
+
+                        <div class="alert alert-success alert-dismissible fade show">
+
+                            {{ message }}
+
+                            <button type="button"
+                                    class="btn-close"
+                                    data-bs-dismiss="alert">
+                            </button>
+
+                        </div>
+
+                    {% endfor %}
+
+                {% endif %}
+
+            {% endwith %}
+
+            {% block content %}
+            {% endblock %}
+
+        </div>
+        
+       <div class="footer">
+<!-- ABOUT + SOLUTIONS PROFESSIONAL SECTION -->
+<div class="container my-4">
+
+  <!-- ABOUT HEADER -->
+  <div class="text-center mb-4">
+    <h3 class="fw-bold">About Us</h3>
+    <p class="text-muted">
+      We provide enterprise-level IT, networking and library management solutions with modern technology.
+    </p>
+  </div>
+
+  <!-- SOLUTIONS ROW -->
+  <div class="row g-3">
+
+    <!-- BOX 1 -->
+    <div class="col-md-6">
+      <div class="card border-0 shadow-sm h-100 p-3">
+
+        <h5 class="fw-semibold mb-3">🖥️ Infrastructure Solutions</h5>
+
+        <ul class="list-unstyled mb-0">
+
+          <li class="mb-2">
+            <a href="/about" class="text-decoration-none text-dark">
+              ➤ About_Us
+            </a>
+          </li>
+
+          <li class="mb-2">
+            <a href="/academic_learning" class="text-decoration-none text-dark">
+              ➤ Academic
+            </a>
+          </li>
+
+          <li class="mb-2">
+            <a href="/analytics" class="text-decoration-none text-dark">
+              ➤ Analytics
+            </a>
+          </li>
+
+          <li class="mb-2">
+            <a href="/dashboard" class="text-decoration-none text-dark">
+              ➤ Dashboard
+            </a>
+          </li>
+
+          <li class="mb-2">
+            <a href="/settings" class="text-decoration-none text-dark">
+              ➤ Settings & System Control
+            </a>
+          </li>
+
+        </ul>
+
+      </div>
+    </div>
+
+    <!-- BOX 2 -->
+    <div class="col-md-6">
+      <div class="card border-0 shadow-sm h-100 p-3">
+
+        <h5 class="fw-semibold mb-3">📚 Library & Digital Services</h5>
+
+        <ul class="list-unstyled mb-0">
+
+          <li class="mb-2">
+            <a href="/return_book" class="text-decoration-none text-dark">
+              ➤ Return Book System
+            </a>
+          </li>
+
+          <li class="mb-2">
+            <a href="/chatbot" class="text-decoration-none text-dark">
+              ➤ AI Chatbot System
+            </a>
+          </li>
+
+          <li class="mb-2">
+            <a href="/service" class="text-decoration-none text-dark">
+              ➤ Services
+            </a>
+          </li>
+
+          <li class="mb-2">
+            <a href="/books" class="text-decoration-none text-dark">
+              ➤ Books Library
+            </a>
+          </li>
+
+          <li class="mb-2">
+            <a href="/careers" class="text-decoration-none text-dark">
+              ➤ Careers
+            </a>
+          </li>
+
+          <li class="mb-2">
+            <a href="/contact" class="text-decoration-none text-dark">
+              ➤ Contact Us
+            </a>
+          </li>
+
+        </ul>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- HOVER EFFECT (Optional CSS) -->
+<style>
+  .card:hover {
+    transform: translateY(-5px);
+    transition: 0.3s;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  }
+</style>
+<!-- Social Media Section -->
+<div class="text-center mt-4 mb-3">
+
+    <h5>Connect with us</h5>
+
+    <!-- Icons (Bootstrap CDN required) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <div class="d-flex justify-content-center gap-4 mt-3">
+
+        <a href="https://www.facebook.com" target="_blank" class="text-primary fs-3">
+            <i class="bi bi-facebook"></i>
+        </a>
+
+        <a href="https://www.instagram.com" target="_blank" class="text-danger fs-3">
+            <i class="bi bi-instagram"></i>
+        </a>
+
+        <a href="https://www.twitter.com" target="_blank" class="text-info fs-3">
+            <i class="bi bi-twitter-x"></i>
+        </a>
+
+        <a href="https://www.linkedin.com" target="_blank" class="text-primary fs-3">
+            <i class="bi bi-linkedin"></i>
+        </a>
+
+        <a href="https://www.youtube.com" target="_blank" class="text-danger fs-3">
+            <i class="bi bi-youtube"></i>
+        </a>
+
+        <a href="mailto:info@library.com" class="text-success fs-3">
+            <i class="bi bi-envelope-fill"></i>
+        </a>
+
+    </div>
+
+</div>
+<h5>Smart Library Management System</h5>
+
+<p>© 2026 All Rights Reserved</p>
+
+</div>
+
+    <!-- Bootstrap JS -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.getElementById("menu-btn").addEventListener("click", function(){
+
+        document.getElementById("sidebar").classList.toggle("active");
+
+        });
+    </script>
+
+    <!-- Chart.js -->
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    {% block js %}
+    {% endblock %}
+
+</body>
+</html>

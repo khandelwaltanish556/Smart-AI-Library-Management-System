@@ -1,0 +1,399 @@
+/* =========================
+   GLOBAL
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Segoe UI',sans-serif;
+    background:#f4f7fc;
+    color:#333;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar{
+    position:fixed;
+    top:0;
+    left:0;
+    width:260px;
+    height:100vh;
+    background:#0f172a;
+    overflow-y:auto;
+    z-index:1000;
+}
+
+.sidebar .logo{
+    text-align:center;
+    padding:20px;
+    color:white;
+    border-bottom:1px solid rgba(255,255,255,.1);
+}
+
+.sidebar .logo h3{
+    margin:0;
+    font-weight:700;
+}
+
+.sidebar ul{
+    list-style:none;
+    padding:20px 0;
+}
+
+.sidebar ul li{
+    margin-bottom:5px;
+}
+
+.sidebar ul li a{
+    display:block;
+    color:white;
+    text-decoration:none;
+    padding:14px 25px;
+    transition:.3s;
+}
+
+.sidebar ul li a:hover{
+    background:#2563eb;
+    border-left:4px solid white;
+}
+
+/* =========================
+   MAIN CONTENT
+========================= */
+
+.main-content{
+    margin-left:260px;
+    min-height:100vh;
+}
+
+/* =========================
+   TOP NAVBAR
+========================= */
+
+.top-navbar{
+    background:white;
+    padding:15px 30px;
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+
+.top-navbar h4{
+    margin:0;
+    font-weight:600;
+}
+
+/* =========================
+   PAGE CONTENT
+========================= */
+
+.page-content{
+    padding:25px;
+}
+
+/* =========================
+   DASHBOARD CARDS
+========================= */
+
+.dashboard-card{
+    border:none;
+    border-radius:15px;
+    color:white;
+    padding:25px;
+    transition:.3s;
+    box-shadow:0 4px 15px rgba(0,0,0,.1);
+}
+
+.dashboard-card:hover{
+    transform:translateY(-5px);
+}
+
+.bg-blue{
+    background:#2563eb;
+}
+
+.bg-green{
+    background:#16a34a;
+}
+
+.bg-red{
+    background:#dc2626;
+}
+
+.bg-purple{
+    background:#7c3aed;
+}
+
+.dashboard-card h2{
+    font-size:32px;
+    font-weight:700;
+}
+
+.dashboard-card p{
+    margin-bottom:0;
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.card{
+    border:none;
+    border-radius:15px;
+    overflow:hidden;
+}
+
+.card-header{
+    font-weight:600;
+}
+
+/* =========================
+   TABLES
+========================= */
+
+.table{
+    background:white;
+}
+
+.table th{
+    background:#0f172a;
+    color:white;
+    vertical-align:middle;
+}
+
+.table td{
+    vertical-align:middle;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.btn{
+    border-radius:8px;
+}
+
+.btn-primary{
+    background:#2563eb;
+    border:none;
+}
+
+.btn-success{
+    border:none;
+}
+
+.btn-danger{
+    border:none;
+}
+
+.btn-warning{
+    border:none;
+}
+
+/* =========================
+   FORMS
+========================= */
+
+.form-control,
+.form-select{
+    border-radius:10px;
+    height:48px;
+}
+
+textarea.form-control{
+    height:auto;
+}
+
+.form-control:focus{
+    box-shadow:none;
+    border-color:#2563eb;
+}
+
+/* =========================
+   LOGIN PAGE
+========================= */
+
+.login-container{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#f4f7fc;
+}
+
+.login-card{
+    width:450px;
+    background:white;
+    border-radius:20px;
+    padding:40px;
+    box-shadow:0 10px 25px rgba(0,0,0,.1);
+}
+
+.login-card h2{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+/* =========================
+   MEMBER PHOTO
+========================= */
+
+.member-img{
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    object-fit:cover;
+}
+
+/* =========================
+   BOOK IMAGE
+========================= */
+
+.book-img{
+    width:60px;
+    height:80px;
+    border-radius:8px;
+    object-fit:cover;
+}
+
+/* =========================
+   NOTICE CARD
+========================= */
+
+.notice-card{
+    border-left:5px solid #2563eb;
+    margin-bottom:15px;
+}
+
+/* =========================
+   CHATBOT
+========================= */
+
+.chat-box{
+    height:500px;
+    overflow-y:auto;
+    background:white;
+    padding:20px;
+    border-radius:15px;
+}
+
+.user-message{
+    background:#2563eb;
+    color:white;
+    padding:10px 15px;
+    border-radius:12px;
+    margin-bottom:10px;
+    text-align:right;
+}
+
+.bot-message{
+    background:#e5e7eb;
+    padding:10px 15px;
+    border-radius:12px;
+    margin-bottom:10px;
+}
+
+/* =========================
+   ATTENDANCE
+========================= */
+
+.present{
+    color:green;
+    font-weight:bold;
+}
+
+.absent{
+    color:red;
+    font-weight:bold;
+}
+
+.late{
+    color:orange;
+    font-weight:bold;
+}
+
+/* =========================
+   ANALYTICS
+========================= */
+
+.analytics-card{
+    background:white;
+    border-radius:15px;
+    padding:20px;
+    box-shadow:0 4px 10px rgba(0,0,0,.08);
+}
+
+/* =========================
+   BADGES
+========================= */
+
+.badge{
+    padding:8px 12px;
+    font-size:12px;
+}
+
+/* =========================
+   FLASH MESSAGE
+========================= */
+
+.alert{
+    border-radius:10px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer{
+    background:white;
+    text-align:center;
+    padding:15px;
+    margin-top:30px;
+}
+
+/* =========================
+   SCROLLBAR
+========================= */
+
+::-webkit-scrollbar{
+    width:8px;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#2563eb;
+    border-radius:10px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:768px){
+
+    .sidebar{
+        width:80px;
+    }
+
+    .sidebar .logo h3{
+        font-size:14px;
+    }
+
+    .sidebar ul li a{
+        font-size:12px;
+        padding:12px 5px;
+        text-align:center;
+    }
+
+    .main-content{
+        margin-left:80px;
+    }
+
+    .dashboard-card{
+        margin-bottom:15px;
+    }
+
+}

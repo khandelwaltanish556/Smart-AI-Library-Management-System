@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}Careers{% endblock %}
+
+{% block content %}
+
+<!-- Bootstrap CDN (if base.html me nahi hai) -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<div class="container mt-4">
+
+    <!-- HEADER -->
+    <div class="text-center mb-4">
+        <h1 class="fw-bold">💼 Careers</h1>
+        <p class="text-muted">Join our Library Management System Team</p>
+    </div>
+
+    <!-- JOB LIST -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <h4 class="mb-3">📌 Current Openings</h4>
+
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <b>Python Flask Developer</b><br>
+                    Experience: 0-2 Years<br>
+                    Skills: Python, Flask, MySQL, HTML, CSS
+                </li>
+
+                <li class="list-group-item">
+                    <b>Frontend Developer</b><br>
+                    Experience: Fresher / 1 Year<br>
+                    Skills: HTML, CSS, JavaScript, Bootstrap
+                </li>
+
+                <li class="list-group-item">
+                    <b>Database Intern</b><br>
+                    Experience: Fresher<br>
+                    Skills: MySQL, SQL Queries
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- APPLY FORM -->
+    <div class="card shadow-sm">
+        <div class="card-body">
+
+            <h4 class="mb-3">📩 Apply Now</h4>
+
+            <form method="POST" action="/apply-career" enctype="multipart/form-data">
+
+                <div class="mb-3">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" name="name" class="form-control" placeholder="Enter your name" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Position</label>
+                    <input type="text" name="position" class="form-control" placeholder="Applied position" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Upload Resume</label>
+                    <input type="file" name="resume" class="form-control" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">
+                    🚀 Submit Application
+                </button>
+
+            </form>
+
+        </div>
+    </div>
+
+    <!-- FOOTER NOTE -->
+    <div class="text-center mt-4 text-muted">
+        <small>We will contact shortlisted candidates via email 📧</small>
+    </div>
+
+</div>
+
+{% endblock %}

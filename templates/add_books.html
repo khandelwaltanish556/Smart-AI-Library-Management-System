@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Add Book{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
+            <div class="card shadow">
+
+                <div class="card-header bg-primary text-white text-center">
+                    <h4>Add New Book</h4>
+                </div>
+
+                <div class="card-body">
+
+                    <form action="/add_books" method="POST">
+
+                        <!-- Book Title -->
+                        <div class="mb-3">
+                            <label class="form-label">Book Title</label>
+                            <input type="text" name="title" class="form-control" placeholder="Enter book title" required>
+                        </div>
+
+                        <!-- Author -->
+                        <div class="mb-3">
+                            <label class="form-label">Author</label>
+                            <input type="text" name="author" class="form-control" placeholder="Enter author name" required>
+                        </div>
+
+                        <!-- Category -->
+                        <div class="mb-3">
+                            <label class="form-label">Category</label>
+                            <input type="text" name="category" class="form-control" placeholder="Enter category" required>
+                        </div>
+
+                        <!-- Quantity -->
+                        <div class="mb-3">
+                            <label class="form-label">Quantity</label>
+                            <input type="number" name="quantity" class="form-control" placeholder="Enter quantity" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-success w-100">
+                            Add Book
+                        </button>
+
+                    </form>
+
+                </div>
+            </div>
+
+                <a href="/books" class="btn btn-primary">
+                    ➕ Back
+                </a>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

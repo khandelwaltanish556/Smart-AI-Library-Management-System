@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Settings
+{% endblock %}
+
+{% block content %}
+
+<div class="card shadow">
+
+    <div class="card-header bg-dark text-white">
+        <h3>⚙ Settings</h3>
+    </div>
+
+    <div class="card-body">
+
+        <form method="POST">
+
+            <div class="mb-3">
+                <label>Library Name</label>
+                <input type="text"
+                       class="form-control"
+                       value="Smart Library">
+            </div>
+
+            <div class="mb-3">
+                <label>Fine Per Day</label>
+                <input type="number"
+                       class="form-control"
+                       value="5">
+            </div>
+
+            <button class="btn btn-success">
+                Save Settings
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

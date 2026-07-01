@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Add Notice{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
+            <div class="card shadow">
+
+                <div class="card-header bg-primary text-white text-center">
+                    <h4>Add New Notice</h4>
+                </div>
+
+                <div class="card-body">
+
+                    <form action="/add_notice" method="POST">
+
+                        <!-- Title -->
+                        <div class="mb-3">
+                            <label class="form-label">Notice Title</label>
+                            <input type="text" name="title" class="form-control" placeholder="Enter title" required>
+                        </div>
+
+                        <!-- Message -->
+                        <div class="mb-3">
+                            <label class="form-label">Message</label>
+                            <textarea name="message" class="form-control" rows="5" placeholder="Enter notice message" required></textarea>
+                        </div>
+
+                        <!-- Date -->
+                        <div class="mb-3">
+                            <label class="form-label">Date</label>
+                            <input type="date" name="date" class="form-control" required>
+                        </div>
+
+                        <!-- Submit -->
+                        <button type="submit" class="btn btn-success w-100">
+                            Publish Notice
+                        </button>
+
+                    </form>
+
+                </div>
+            </div>
+
+            <a href="/notices" class="btn btn-primary">
+                 ➕ Back
+            </a>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

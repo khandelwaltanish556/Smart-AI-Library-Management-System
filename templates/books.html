@@ -1,0 +1,303 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Books Management
+{% endblock %}
+
+{% block page_title %}
+Books Management
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <!-- Header -->
+
+    <div class="row mb-4">
+
+        <div class="col-md-6">
+
+            <h3>
+                Library Books
+            </h3>
+
+        </div>
+
+        <div class="col-md-6 text-end">
+
+            <a href="/add_books"
+               class="btn btn-primary">
+
+                <i class="fa-solid fa-plus"></i>
+
+                Add New Book
+
+            </a>
+
+            <a href="/issue_books"
+               class="btn btn-primary">
+
+                <i class="fa-solid fa-plus"></i>
+
+                Issue Book
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- Summary Cards -->
+
+    <div class="row mb-4">
+
+        <div class="col-md-3">
+
+            <div class="card shadow border-0">
+
+                <div class="card-body">
+
+                    <h6>Total Books</h6>
+
+                    <h3>{{ total_books }}</h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="card shadow border-0">
+
+                <div class="card-body">
+
+                    <h6>Available Books</h6>
+
+                    <h3>{{ available_books }}</h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="card shadow border-0">
+
+                <div class="card-body">
+
+                    <h6>Issued Books</h6>
+
+                    <h3>{{ issued_books }}</h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="card shadow border-0">
+
+                <div class="card-body">
+
+                    <h6>Categories</h6>
+
+                    <h3>{{ total_categories }}</h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Search Box -->
+
+    <div class="card shadow border-0 mb-4">
+
+        <div class="card-body">
+
+            <form method="GET">
+
+                <div class="row">
+
+                    <div class="col-md-10">
+
+                        <input
+                            type="text"
+                            name="search"
+                            class="form-control"
+                            placeholder="Search Book Name, Author or Category">
+
+                    </div>
+
+                    <div class="col-md-2">
+
+                        <button
+                            type="submit"
+                            class="btn btn-success w-100">
+
+                            Search
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- Books Table -->
+
+    <div class="card shadow border-0">
+
+        <div class="card-header bg-primary text-white">
+
+            <h5 class="mb-0">
+
+                Books List
+
+            </h5>
+
+        </div>
+
+        <div class="card-body">
+
+            <div class="table-responsive">
+
+                <table class="table table-bordered table-hover align-middle">
+
+                    <thead class="table-dark">
+
+                        <tr>
+
+                            <th>ID</th>
+
+                            <th>Cover</th>
+
+                            <th>Book Name</th>
+
+                            <th>Author</th>
+
+                            <th>Category</th>
+
+                            <th>ISBN</th>
+
+                            <th>Quantity</th>
+
+                            <th>Available</th>
+
+                            <th>Status</th>
+
+                            <th>Action</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {% for book in books %}
+
+                        <tr>
+
+                            <td>
+                                {{ book.id }}
+                            </td>
+
+                            <td>
+
+                                <img
+                                    src="{{ url_for('static', filename='uploads/books/' + book.image) }}"
+                                    width="50"
+                                    height="60">
+
+                            </td>
+
+                            <td>
+                                {{ book.title }}
+                            </td>
+
+                            <td>
+                                {{ book.author }}
+                            </td>
+
+                            <td>
+                                {{ book.category }}
+                            </td>
+
+                            <td>
+                                {{ book.isbn }}
+                            </td>
+
+                            <td>
+                                {{ book.quantity }}
+                            </td>
+
+                            <td>
+                                {{ book.available }}
+                            </td>
+
+                            <td>
+
+                                {% if book.available_quantity > 0 %}
+
+                                <span class="badge bg-success">
+                                    Available
+                                </span>
+
+                                {% else %}
+
+                                <span class="badge bg-danger">
+                                    Out of Stock
+                                </span>
+
+                                {% endif %}
+
+                            </td>
+
+                            <td>
+
+                                <a href="/edit_book/{{ book.id }}"
+                                    class="btn btn-warning">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+
+                                <a href="{{ url_for('delete_book', book_id=book.id) }}"
+                                    class="btn btn-danger btn-sm"
+                                    onclick="return confirm('Delete this book?')">
+
+                                    <i class="fa-solid fa-trash"></i>
+
+                                </a>
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

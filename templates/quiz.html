@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+<h2>{{ course|title }} Quiz</h2>
+
+<form method="POST">
+
+<div class="card p-3">
+
+<h5>1. Python is a ______ language?</h5>
+
+<input type="radio"
+name="q1"
+value="Programming">
+
+Programming
+
+<br>
+
+<input type="radio"
+name="q1"
+value="Database">
+
+Database
+
+<br>
+
+<input type="radio"
+name="q1"
+value="Network">
+
+Network
+
+</div>
+
+<br>
+
+<button class="btn btn-primary">
+
+Submit Quiz
+
+</button>
+
+</form>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,249 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+  <!-- About Heading -->
+  <h2 class="text-center mb-3">About Us</h2>
+
+  <p class="text-muted text-justify">
+    Acme Digitek Solutions was established in 1992 by the name and style of Digitek Systems.
+    It started as a repair and maintenance organization doing repair work and Third Party Maintenance services.
+    Later it expanded into Sales, Networking, Infrastructure, and IT Services.
+  </p>
+
+  <p class="text-muted">
+    Over the years, Digitek partnered with leading global companies like HP, Cisco, and Sun Microsystems.
+    Today it is a leading Systems Integration company delivering innovative IT solutions across India.
+  </p>
+
+  <hr>
+
+  <!-- Best Practices -->
+  <h4>Best Practices</h4>
+  <ul class="text-muted">
+    <li>Provide consultancy for IT requirements with cost-effective solutions</li>
+    <li>Maintain ISO 9001:2015 service standards</li>
+    <li>Adopt latest technologies and trends</li>
+    <li>Maintain skilled workforce for customer satisfaction</li>
+    <li>Ethical business practices</li>
+    <li>Support customers in critical situations</li>
+  </ul>
+
+  <hr>
+
+ <!-- Awards & Recognition Section -->
+
+<section class="awards-section py-5">
+
+    <div class="container">
+
+        <div class="text-center mb-5">
+
+            <h2 class="fw-bold display-5">
+                Awards & Recognition
+            </h2>
+
+            <p class="text-muted">
+                Honoring excellence, innovation, and our commitment to delivering
+                world-class digital library solutions.
+            </p>
+
+        </div>
+
+        <div class="row g-4">
+
+            <!-- Award 1 -->
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="award-card">
+
+                    <img src="{{ url_for('static', filename='images/award1.jpg') }}">
+
+                    <h5>Best Library System</h5>
+
+                    <p>Recognized for innovation in library automation.</p>
+
+                </div>
+
+            </div>
+
+            <!-- Award 2 -->
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="award-card">
+
+                    <img src="{{ url_for('static', filename='images/award2.jpg') }}">
+
+                    <h5>Education Excellence</h5>
+
+                    <p>Outstanding contribution to EdTech.</p>
+
+                </div>
+
+            </div>
+
+            <!-- Award 3 -->
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="award-card">
+
+                    <img src="{{ url_for('static', filename='images/award3.jpg') }}">
+
+                    <h5>Innovation Award</h5>
+
+                    <p>Recognized for digital transformation.</p>
+
+                </div>
+
+            </div>
+
+            <!-- Award 4 -->
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="award-card">
+
+                    <img src="{{ url_for('static', filename='images/award4.jpg') }}">
+
+                    <h5>Top Institution Choice</h5>
+
+                    <p>Trusted by educational organizations.</p>
+
+                </div>
+
+            </div>
+
+            <!-- Award 5 -->
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="award-card">
+
+                    <img src="{{ url_for('static', filename='images/award5.jpg') }}">
+
+                    <h5>Customer Excellence</h5>
+
+                    <p>Best customer satisfaction award.</p>
+
+                </div>
+
+            </div>
+
+            <!-- Award 6 -->
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="award-card">
+
+                    <img src="{{ url_for('static', filename='images/award6.jpg') }}">
+
+                    <h5>Quality Commitment</h5>
+
+                    <p>Committed to continuous improvement.</p>
+
+                </div>
+
+            </div>
+
+            <!-- Award 7 -->
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="award-card">
+
+                    <img src="{{ url_for('static', filename='images/award7.jpg') }}">
+
+                    <h5>Best Digital Solution</h5>
+
+                    <p>Recognized for modern technology solutions.</p>
+
+                </div>
+
+            </div>
+
+            <!-- Award 8 -->
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="award-card">
+
+                    <img src="{{ url_for('static', filename='images/award8.jpg') }}">
+
+                    <h5>Trusted Partner</h5>
+
+                    <p>Reliable education technology partner.</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+  <!-- Customers Section -->
+  <h4>Our Customers</h4>
+
+  <div class="row">
+
+    <div class="col-md-6">
+      <h6>Judiciary / Government</h6>
+      <ul class="text-muted">
+        <li>High Court of Judicature at Allahabad</li>
+        <li>BSNL Ltd.</li>
+        <li>Department of Posts</li>
+        <li>Income Tax Dept.</li>
+        <li>North Eastern Railway</li>
+      </ul>
+
+      <h6>Defence</h6>
+      <ul class="text-muted">
+        <li>HQ Central Command, Lucknow</li>
+        <li>Central Air Command</li>
+      </ul>
+
+      <h6>Power Sector</h6>
+      <ul class="text-muted">
+        <li>NTPC Ltd.</li>
+        <li>Powergrid Corporation</li>
+      </ul>
+    </div>
+
+    <div class="col-md-6">
+
+      <h6>Public Sector</h6>
+      <ul class="text-muted">
+        <li>HAL Ltd.</li>
+        <li>ITI Ltd.</li>
+        <li>IFFCO Ltd.</li>
+      </ul>
+
+      <h6>Universities & Education</h6>
+      <ul class="text-muted">
+        <li>Banaras Hindu University</li>
+        <li>IIT Kanpur</li>
+        <li>Lucknow University</li>
+        <li>AMU Aligarh</li>
+      </ul>
+
+      <h6>Corporate Sector</h6>
+      <ul class="text-muted">
+        <li>Tata Motors</li>
+        <li>Hindustan Construction Co.</li>
+        <li>Sahara India</li>
+      </ul>
+
+    </div>
+
+  </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,209 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Issue Book
+{% endblock %}
+
+{% block page_title %}
+Issue Book
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+<div class="row">
+
+    <!-- Issue Form -->
+
+    <div class="col-lg-5">
+
+        <div class="card shadow border-0">
+
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Issue New Book</h5>
+            </div>
+
+            <div class="card-body">
+
+                <form method="POST">
+
+                    <!-- Member -->
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Select Student
+                        </label>
+
+                        <select name="member_id"
+                                class="form-control"
+                                required>
+
+                            <option value="">
+                                Select Student
+                            </option>
+
+                            {% for member in members %}
+                            <option value="{{ member[0] }}">
+                                {{ member[1] }}
+                            </option>
+                            {% endfor %}
+
+                        </select>
+
+                    </div>
+
+                    <!-- Book -->
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Select Book
+                        </label>
+
+                        <select name="book_id"
+                                class="form-control"
+                                required>
+
+                            <option value="">
+                                Select Book
+                            </option>
+
+                            {% for book in books %}
+                            <option value="{{ book[0] }}">
+                                {{ book[1] }}
+                            </option>
+                            {% endfor %}
+
+                        </select>
+
+                    </div>
+
+                    <!-- Issue Date -->
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Issue Date
+                        </label>
+
+                        <input type="date"
+                               name="issue_date"
+                               class="form-control"
+                               required>
+
+                    </div>
+
+                    <!-- Due Date -->
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Due Date
+                        </label>
+
+                        <input type="date"
+                               name="due_date"
+                               class="form-control"
+                               required>
+
+                    </div>
+
+                    <button type="submit"
+                            class="btn btn-success w-100">
+
+                        Issue Book
+
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Issued Books Table -->
+
+    <div class="col-lg-7">
+
+        <div class="card shadow border-0">
+
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">Issued Books List</h5>
+            </div>
+
+            <div class="card-body">
+
+                <div class="table-responsive">
+
+                    <table class="table table-bordered table-hover">
+
+                        <thead class="table-dark">
+
+                            <tr>
+                                <th>ID</th>
+                                <th>Member</th>
+                                <th>Book</th>
+                                <th>Issue Date</th>
+                                <th>Due Date</th>
+                                <th>Status</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            {% for row in issued_books %}
+
+                            <tr>
+
+                                <td>{{ row.id }}</td>
+                                <td>{{ row.member_name }}</td>
+                                <td>{{ row.book_name }}</td>
+                                <td>{{ row.issue_date }}</td>
+                                <td>{{ row.due_date }}</td>
+
+                                <td>
+
+                                    {% if row.status == 'Issued' %}
+                                    <span class="badge bg-warning">
+                                        Issued
+                                    </span>
+                                    {% else %}
+                                    <span class="badge bg-success">
+                                        Returned
+                                    </span>
+                                    {% endif %}
+
+                                </td>
+
+                            </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+            <a href="/books" class="btn btn-primary">
+                 ➕ Back
+            </a>
+
+    </div>
+    
+
+</div>
+
+
+</div>
+
+{% endblock %}

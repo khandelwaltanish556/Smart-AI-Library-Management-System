@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Notices{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2 class="text-center mb-4">Library Notices</h2>
+
+    <!-- Add Notice Button -->
+    <div class="text-end mb-3">
+        <a href="/add_notice" class="btn btn-primary">+ Add Notice</a>
+    </div>
+
+    <!-- Notices List -->
+    <div class="row">
+
+        {% if notices %}
+            {% for n in notices %}
+            <div class="col-md-6 mb-3">
+
+                <div class="card shadow">
+
+                    <div class="card-header bg-dark text-white">
+                        <h5>{{ n.title }}</h5>
+                    </div>
+
+                    <div class="card-body">
+                        <p>{{ n.message }}</p>
+                    </div>
+
+                    <div class="card-footer text-muted">
+                        Date: {{ n.date }}
+                    </div>
+
+                </div>
+
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-12 text-center">
+                <p>No notices available</p>
+            </div>
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

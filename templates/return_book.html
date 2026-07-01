@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Return Book{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="row justify-content-center">
+        <div class="col-md-7">
+
+            <div class="card shadow">
+
+                <div class="card-header bg-success text-white text-center">
+                    <h4>Return Book</h4>
+                </div>
+
+                <div class="card-body">
+
+                    <form action="/return_book" method="POST">
+
+                        <!-- Select Issued Book -->
+                        <div class="mb-3">
+                            <label class="form-label">Select Issued Book</label>
+                            <select name="issue_id" class="form-control" required>
+                                <option value="">-- Select Book --</option>
+
+                                {% for issue in issued_books %}
+                                <option value="{{ issue.id }}">
+                                    Book: {{ issue.book_title }} | Member: {{ issue.member_name }} | Issue Date: {{ issue.issue_date }}
+                                </option>
+                                {% endfor %}
+
+                            </select>
+                        </div>
+
+                        <!-- Return Date -->
+                        <div class="mb-3">
+                            <label class="form-label">Return Date</label>
+                            <input type="date" name="return_date" class="form-control" required>
+                        </div>
+
+                        <!-- Submit -->
+                        <button type="submit" class="btn btn-success w-100">
+                            Return Book
+                        </button>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

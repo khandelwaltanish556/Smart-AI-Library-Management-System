@@ -1,0 +1,101 @@
+.dashboard-container{
+    padding:20px;
+}
+
+.stats-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
+
+.stat-card{
+    background:#fff;
+    border-radius:12px;
+    padding:20px;
+    box-shadow:0 3px 15px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.stat-card:hover{
+    transform:translateY(-5px);
+}
+
+.stat-card h3{
+    color:#666;
+    font-size:15px;
+    margin-bottom:10px;
+}
+
+.stat-card h2{
+    color:#1e293b;
+    font-weight:700;
+}
+
+.chart-section{
+    margin-top:30px;
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:20px;
+}
+
+.chart-card{
+    background:#fff;
+    border-radius:12px;
+    padding:20px;
+    box-shadow:0 3px 15px rgba(0,0,0,.08);
+}
+
+.recent-table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.recent-table th{
+    background:#0f172a;
+    color:#fff;
+    padding:12px;
+}
+
+.recent-table td{
+    padding:10px;
+    border-bottom:1px solid #ddd;
+}
+
+.book-status{
+    padding:5px 10px;
+    border-radius:20px;
+    font-size:12px;
+}
+
+.available{
+    background:#dcfce7;
+    color:#166534;
+}
+
+.issued{
+    background:#fee2e2;
+    color:#991b1b;
+}
+
+.overdue{
+    background:#fef3c7;
+    color:#92400e;
+}
+
+.analytics-box{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:20px;
+    margin-top:30px;
+}
+
+.analytics-card{
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 3px 15px rgba(0,0,0,.08);
+}
+
+canvas{
+    width:100% !important;
+}

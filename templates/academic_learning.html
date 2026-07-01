@@ -1,0 +1,247 @@
+{% extends "base.html" %}
+
+{% block title %}Academic Learning{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <!-- Header -->
+    <div class="text-center mb-5">
+        <h1 class="fw-bold text-primary">🎓 Academic Learning</h1>
+        <p class="lead text-muted">
+            Enhance your knowledge with structured learning paths, practical resources,
+            quizzes and certifications.
+        </p>
+    </div>
+
+    <!-- Learning Categories -->
+    <h3 class="mb-4">📚 Learning Categories</h3>
+
+    <div class="row g-4">
+
+        <div class="col-md-4">
+            <div class="card shadow h-100 border-0">
+                <div class="card-body">
+                    <h4>💻 Programming</h4>
+                    <p>
+                        Learn Python, Java, C Programming, Flask,
+                        Data Structures and Object-Oriented Programming.
+                    </p>
+
+                    <ul>
+                        <li>Python Basics</li>
+                        <li>Java Programming</li>
+                        <li>C Programming</li>
+                        <li>Flask Framework</li>
+                    </ul>
+
+                    <a href="/books" class="btn btn-primary">
+                        View Books
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow h-100 border-0">
+                <div class="card-body">
+                    <h4>🤖 Artificial Intelligence</h4>
+
+                    <p>
+                        Study Machine Learning, Deep Learning,
+                        NLP and Computer Vision.
+                    </p>
+
+                    <ul>
+                        <li>Machine Learning</li>
+                        <li>Deep Learning</li>
+                        <li>NLP</li>
+                        <li>Computer Vision</li>
+                    </ul>
+
+                    <a href="/books" class="btn btn-success">
+                        Explore AI
+                    </a>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow h-100 border-0">
+                <div class="card-body">
+
+                    <h4>🗄 Database</h4>
+
+                    <p>
+                        Learn SQL, DBMS,
+                        Database Design and MySQL.
+                    </p>
+
+                    <ul>
+                        <li>SQL Queries</li>
+                        <li>Normalization</li>
+                        <li>ER Diagram</li>
+                        <li>Database Design</li>
+                    </ul>
+
+                    <a href="/books" class="btn btn-warning">
+                        Learn Database
+                    </a>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Learning Features -->
+
+    <div class="mt-5">
+
+        <h3 class="mb-4">🚀 Learning Features</h3>
+
+        <div class="row g-4">
+
+            <div class="col-md-3">
+                <div class="card text-center shadow border-0 h-100">
+                    <div class="card-body">
+                        <h1>📖</h1>
+                        <h5>Study Materials</h5>
+                        <p>Access books, PDFs and reference notes.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card text-center shadow border-0 h-100">
+                    <div class="card-body">
+                        <h1>🎥</h1>
+                        <h5>Video Tutorials</h5>
+                        <p>Watch recorded lectures and demonstrations.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card text-center shadow border-0 h-100">
+                    <div class="card-body">
+                        <h1>📝</h1>
+                        <h5>Practice Quiz</h5>
+                        <p>Test your knowledge using quizzes.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card text-center shadow border-0 h-100">
+                    <div class="card-body">
+                        <h1>📜</h1>
+                        <h5>Certification</h5>
+                        <p>Receive certificates after course completion.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Certifications -->
+
+    <div class="row g-4 mt-4">
+
+    {% for course in courses %}
+
+    <div class="col-lg-4 col-md-6">
+
+        <div class="card shadow h-100">
+
+            <img src="{{ url_for('static', filename='courses/' + course.image) }}"
+                 class="card-img-top p-3"
+                 style="height:220px; object-fit:contain;">
+
+            <div class="card-body">
+
+                <h4 class="mb-3">{{ course.title }}</h4>
+
+                <a href="/course/{{ course.name }}"
+                   class="btn btn-primary">
+                    Open Course
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+    <!-- Progress -->
+
+    <div class="mt-5">
+
+        <h3 class="mb-4">📊 Learning Progress</h3>
+
+        <div class="mb-3">
+
+            <label>Python Programming</label>
+
+            <div class="progress">
+                <div class="progress-bar bg-success"
+                     style="width:80%">
+                    80%
+                </div>
+            </div>
+
+        </div>
+
+        <div class="mb-3">
+
+            <label>Machine Learning</label>
+
+            <div class="progress">
+                <div class="progress-bar bg-info"
+                     style="width:60%">
+                    60%
+                </div>
+            </div>
+
+        </div>
+
+        <div class="mb-3">
+
+            <label>Database</label>
+
+            <div class="progress">
+                <div class="progress-bar bg-warning"
+                     style="width:45%">
+                    45%
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+
+    <div class="text-center mt-5">
+
+        <h4>🌟 Keep Learning, Keep Growing!</h4>
+
+        <p class="text-muted">
+            Our Academic Learning Portal helps students build technical
+            skills through books, quizzes and certifications.
+        </p>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}Students{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2 class="mb-4 text-center">Library Students</h2>
+
+    <!-- Add Member Button -->
+    <div class="mb-3 text-end">
+        <a href="/add_member" class="btn btn-primary">+ Add Member</a>
+    </div>
+
+    <!-- Members Table -->
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover">
+
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Admission</th>
+                    <th>full_Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Gender</th>
+                    <th>Course</th>
+                    <th>Address</th>
+                    <th>Join Date</th>
+
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% if members %}
+                    {% for member in members %}
+                    <tr>
+                        <td>{{ member.id }}</td>
+                        <td>{{ member.admission_no }}</td>
+                        <td>{{ member.full_name }}</td>
+                        <td>{{ member.email }}</td>
+                        <td>{{ member.phone }}</td>
+                        <td>{{ member.gender }}</td>
+                        <td>{{ member.course }}</td>
+                        <td>{{ member.address }}</td>
+                        <td>{{ member.join_date }}</td>
+                        <td>
+                            <a href="/edit_member/{{ member.id }}" class="btn btn-sm btn-warning">Edit</a>
+                            <a href="/delete_member/{{ member.id }}" class="btn btn-sm btn-danger"
+                               onclick="return confirm('Are you sure you want to delete this member?')">
+                               Delete
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center">No members found</td>
+                    </tr>
+                {% endif %}
+
+            </tbody>
+
+        </table>
+    </div>
+
+</div>
+
+{% endblock %}

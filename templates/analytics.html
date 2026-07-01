@@ -1,0 +1,397 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Analytics Dashboard
+{% endblock %}
+
+{% block page_title %}
+Analytics Dashboard
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <!-- Top Cards -->
+
+    <div class="row">
+
+        <div class="col-md-3 mb-4">
+
+            <div class="card dashboard-card bg-primary text-white">
+
+                <div class="card-body">
+
+                    <h6>Total Books</h6>
+
+                    <h2>{{ total_books }}</h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3 mb-4">
+
+            <div class="card dashboard-card bg-success text-white">
+
+                <div class="card-body">
+
+                    <h6>Total Members</h6>
+
+                    <h2>{{ total_members }}</h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3 mb-4">
+
+            <div class="card dashboard-card bg-warning text-white">
+
+                <div class="card-body">
+
+                    <h6>Issued Books</h6>
+
+                    <h2>{{ issued_books }}</h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3 mb-4">
+
+            <div class="card dashboard-card bg-danger text-white">
+
+                <div class="card-body">
+
+                    <h6>Total Fine</h6>
+
+                    <h2>₹{{ total_fine }}</h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Charts Row -->
+
+    <div class="row">
+
+        <div class="col-md-6 mb-4">
+
+            <div class="card shadow">
+
+                <div class="card-header">
+                    Monthly Book Issue Trend
+                </div>
+
+                <div class="card-body">
+
+                    <canvas id="issueChart"></canvas>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-6 mb-4">
+
+            <div class="card shadow">
+
+                <div class="card-header">
+                    Book Categories
+                </div>
+
+                <div class="card-body">
+
+                    <canvas id="categoryChart"></canvas>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Second Row -->
+
+    <div class="row">
+
+        <div class="col-md-6 mb-4">
+
+            <div class="card shadow">
+
+                <div class="card-header">
+                    Attendance Analytics
+                </div>
+
+                <div class="card-body">
+
+                    <canvas id="attendanceChart"></canvas>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-6 mb-4">
+
+            <div class="card shadow">
+
+                <div class="card-header">
+                    Fine Collection
+                </div>
+
+                <div class="card-body">
+
+                    <canvas id="fineChart"></canvas>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ML Predictions -->
+
+    <!-- Machine Learning Insights -->
+
+<div class="row mt-4">
+
+    <div class="col-md-12">
+
+        <div class="card shadow">
+
+            <div class="card-header bg-dark text-white">
+
+                <i class="fas fa-brain"></i>
+                Machine Learning Insights
+
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+
+                    <!-- Most Demanded Book -->
+
+                    <div class="col-md-3 mb-3">
+
+                        <div class="card border-primary shadow-sm">
+
+                            <div class="card-body text-center">
+
+                                <i class="fas fa-book fa-3x text-primary mb-3"></i>
+
+                                <h6>Most Demanded Book</h6>
+
+                                <h5 class="fw-bold text-primary">
+                                    {{ predicted_book }}
+                                </h5>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Expected Demand -->
+
+                    <div class="col-md-3 mb-3">
+
+                        <div class="card border-success shadow-sm">
+
+                            <div class="card-body text-center">
+
+                                <i class="fas fa-chart-line fa-3x text-success mb-3"></i>
+
+                                <h6>Expected Demand</h6>
+
+                                <h3 class="text-success">
+
+                                    {{ expected_demand }}
+
+                                </h3>
+
+                                <small>Next Month</small>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Restock -->
+
+                    <div class="col-md-3 mb-3">
+
+                        <div class="card border-warning shadow-sm">
+
+                            <div class="card-body text-center">
+
+                                <i class="fas fa-box-open fa-3x text-warning mb-3"></i>
+
+                                <h6>Restock Required</h6>
+
+                                <h3 class="text-warning">
+
+                                    {{ restock }}
+
+                                </h3>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Confidence -->
+
+                    <div class="col-md-3 mb-3">
+
+                        <div class="card border-danger shadow-sm">
+
+                            <div class="card-body text-center">
+
+                                <i class="fas fa-bullseye fa-3x text-danger mb-3"></i>
+
+                                <h6>Confidence</h6>
+
+                                <h3 class="text-danger">
+
+                                    {{ confidence }}%
+
+                                </h3>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
+
+{% block js %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+// Monthly Issue Chart
+
+new Chart(
+document.getElementById('issueChart'),
+{
+type:'line',
+
+data:{
+labels:[
+'Jan',
+'Feb',
+'Mar',
+'Apr',
+'May',
+'Jun'
+],
+
+datasets:[{
+label:'Issued Books',
+
+data:[50,80,100,120,150,180]
+}]
+}
+}
+);
+
+// Category Chart
+
+new Chart(
+document.getElementById('categoryChart'),
+{
+type:'pie',
+
+data:{
+labels:[
+'Programming',
+'AI',
+'Business',
+'Science'
+],
+
+datasets:[{
+data:[40,25,20,15]
+}]
+}
+}
+);
+
+// Attendance Chart
+
+new Chart(
+document.getElementById('attendanceChart'),
+{
+type:'bar',
+
+data:{
+labels:[
+'Week1',
+'Week2',
+'Week3',
+'Week4'
+],
+
+datasets:[{
+label:'Attendance %',
+
+data:[85,90,88,92]
+}]
+}
+}
+);
+
+// Fine Collection Chart
+
+new Chart(
+document.getElementById('fineChart'),
+{
+type:'doughnut',
+
+data:{
+labels:[
+'Collected',
+'Pending'
+],
+
+datasets:[{
+data:[7000,2500]
+}]
+}
+}
+);
+
+</script>
+
+{% endblock %}

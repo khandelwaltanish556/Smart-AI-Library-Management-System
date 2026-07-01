@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Smart Library Management System</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+
+body{
+    font-family: Arial, sans-serif;
+    background-color: green;
+}
+
+/* Navbar */
+.navbar{
+    background:green;
+}
+
+.logo{
+    width:45px;
+    height:45px;
+}
+
+/* Hero */
+
+.hero{
+    position: relative;
+    height: 90vh;
+    overflow: hidden;
+}
+
+.hero-video{
+    position: absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    z-index:-2;
+}
+
+.overlay{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.45);
+    z-index:-1;
+}
+
+.hero-content{
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    color:#fff;
+    text-align:center;
+}
+
+.hero h1{
+    font-size:4rem;
+    font-weight:bold;
+}
+
+.overlay{
+    background:rgba(0,0,0,0.7);
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    color:white;
+    text-align:center;
+}
+
+.overlay h1{
+    font-size:60px;
+    font-weight:bold;
+}
+
+.overlay p{
+    font-size:22px;
+}
+
+.sidebar-link{
+    display:block;
+    padding:12px;
+    text-decoration:none;
+    color:black;
+    border-bottom:1px solid #ddd;
+}
+
+.sidebar-link:hover{
+    background:#f1f1f1;
+}
+
+.section-title{
+    text-align:center;
+    margin:50px 0;
+    font-weight:bold;
+}
+
+
+.footer{
+    background:#0f172a;
+    color:white;
+    padding:20px;
+    text-align:center;
+    margin-top:10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+
+<nav class="navbar navbar-dark">
+
+<div class="container-fluid">
+
+<button class="btn btn-light"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#sidebar">
+
+☰
+
+</button>
+
+<a class="navbar-brand text-white">
+
+<img src="https://cdn-icons-png.flaticon.com/512/2232/2232688.png"
+class="logo">
+
+Smart Library
+
+</a>
+
+</div>
+
+</nav>
+
+<!-- Sidebar -->
+
+<div class="offcanvas offcanvas-start"
+     tabindex="-1"
+     id="sidebar">
+
+<div class="offcanvas-header">
+
+<h4>Library Menu</h4>
+
+<button type="button"
+        class="btn-close"
+        data-bs-dismiss="offcanvas">
+</button>
+
+</div>
+
+<div class="offcanvas-body">
+
+<a href="/" class="sidebar-link">🏠 Home</a>
+
+<a href="/dashboard" class="sidebar-link">📊 Dashboard</a>
+
+<a href="/books" class="sidebar-link">📚 Books</a>
+
+<a href="/member" class="sidebar-link">👨‍🎓 Members</a>
+
+<a href="/return_book" class="sidebar-link">🔄 Return Book</a>
+
+<a href="/attendance" class="sidebar-link">📅 Attendance</a>
+
+<a href="/attendance_report" class="sidebar-link">📋 Attendance Report</a>
+
+<a href="/notices" class="sidebar-link">📢 Notices</a>
+
+<a href="/careers" class="sidebar-link">💼 careers</a>
+
+<a href="/service" class="sidebar-link">📚 service</a>
+
+<a href="/chatbot" class="sidebar-link">🤖 AI Chatbot</a>
+
+<a href="/analytics" class="sidebar-link">📈 Analytics</a>
+
+<a href="/about" class="sidebar-link">🏢 About Us</a>
+
+<a href="/pay_fee" class="sidebar-link">💳 Pay Fee</a>
+
+<a href="/fee_history" class="sidebar-link">📜 Fee History</a>
+
+<a href="/contact" class="sidebar-link">📞 Contact_Us</a>
+
+<a href="/profile" class="sidebar-link">👤 Profile</a>
+
+<a href="/careers" class="sidebar-link">💼 careers</a>
+
+<a href="/service" class="sidebar-link">📚 service</a>
+
+<a href="/settings" class="sidebar-link">⚙ Settings</a>
+
+<a href="/login" class="sidebar-link">🔑 Login</a>
+
+<a href="/register" class="sidebar-link">📝 Register</a>
+
+<a href="/logout" class="sidebar-link text-danger">🚪 Logout</a>
+
+</div>
+
+</div>
+
+<section class="hero">
+    <video autoplay muted loop playsinline class="hero-video">
+        <source src="{{ url_for('static', filename='videos/library.mp4') }}" type="video/mp4">
+    </video>
+
+    <div class="overlay"></div>
+
+    <div class="hero-content">
+        <h1>Smart Library Management System</h1>
+        <a href="/login" class="btn btn-primary">Get Started</a>
+    </div>
+</section>
+
+<!-- AI BOOK RECOMMENDATIONS -->
+
+<section class="py-5 bg-light">
+
+    <div class="container">
+
+        <div class="text-center mb-4">
+
+            <h2 class="fw-bold">
+                AI Recommended Books
+            </h2>
+
+            <p class="text-muted">
+                Books Recommended Using Machine Learning
+            </p>
+
+        </div>
+
+        <div class="row">
+
+            {% for book in recommendations %}
+
+            <div class="col-md-4 mb-4">
+
+                <div class="card shadow border-0 h-100 p-3 text-center">
+
+                    {% if book.image %}
+
+                    <img src="{{ url_for('static',
+                    filename='uploads/books' + python.jpg) }}"
+                    class="card-img-top"
+                    style="height:250px;object-fit:cover;">
+
+                    {% endif %}
+
+                    <div class="card-body">
+
+                        <h5>
+                            {{ book.book_name }}
+                        </h5>
+
+                        <p class="text-muted">
+
+                            Author:
+                            {{ book.author }}
+
+                            <br>
+
+                            Category:
+                            {{ book.category }}
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+<!-- Library Images -->
+
+<div class="container">
+
+<h2 class="section-title">
+Library Gallery
+</h2>
+
+<div class="row">
+
+<div class="col-md-4 mb-3">
+<img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66"
+class="img-fluid rounded shadow">
+</div>
+
+<div class="col-md-4 mb-3">
+<img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f"
+class="img-fluid rounded shadow">
+</div>
+
+<div class="col-md-4 mb-3">
+<img src="https://images.unsplash.com/photo-1512820790803-83ca734da794"
+class="img-fluid rounded shadow">
+</div>
+
+
+
+</div>
+
+</div>
+
+<!-- Books Galaery -->
+
+<div class="container">
+
+<h2 class="section-title">
+  Books Gallery
+</h2>
+
+<div class="row">
+
+  <div class="col-md-4 mb-3">
+    <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f"
+    class="img-fluid rounded shadow">
+  </div>
+
+  <div class="col-md-4 mb-3">
+    <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794"
+    class="img-fluid rounded shadow">
+  </div>
+
+  <div class="col-md-4 mb-3">
+    <img src="https://images.unsplash.com/photo-1519682337058-a94d519337bc"
+    class="img-fluid rounded shadow">
+  </div>
+
+  <div class="col-md-4 mb-3">
+    <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66"
+    class="img-fluid rounded shadow">
+  </div>
+
+  <div class="col-md-4 mb-3">
+    <img src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d"
+    class="img-fluid rounded shadow">
+  </div>
+
+  <div class="col-md-4 mb-3">
+    <img src="https://images.unsplash.com/photo-1516979187457-637abb4f9353"
+    class="img-fluid rounded shadow">
+  </div>
+
+
+  </div>
+
+</div>
+
+<!-- Solutions Section -->
+<div class="container mt-5">
+
+  <h3 class="text-center mb-4">Solutions</h3>
+
+  <div class="row">
+
+    <!-- Card 1 -->
+    <div class="col-md-4 mb-4">
+      <div class="card shadow border-0 h-100 p-3 text-center">
+        <img src="https://cdn-icons-png.flaticon.com/512/4248/4248443.png" class="mx-auto mb-2" style="width:60px;height:60px;object-fit:contain;">
+        <h5><a href="/server_storage" class="text-decoration-none text-dark">
+          Server & Storage Solutions</a></h5>
+        <p class="text-muted">End-to-end designing, development and implementation of server read more..></p>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="col-md-4 mb-4">
+      <div class="card shadow border-0 h-100 p-3 text-center">
+        <img src="https://cdn-icons-png.flaticon.com/512/2885/2885417.png"class="mx-auto mb-3"style="width:60px;height:60px;object-fit:contain;">
+        <h5><a href="/networking" class="text-decoration-none text-dark">
+Networking Solutions</a></h5>
+        <p class="text-muted">Enterprise IT backbone with secure and efficient networking technologies.</p>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="col-md-4 mb-4">
+      <div class="card shadow border-0 h-100 p-3 text-center">
+        <img src="https://cdn-icons-png.flaticon.com/512/3079/3079167.png"class="mx-auto mb-3"style="width:60px;height:60px;object-fit:contain;">
+        <h5><a href="/network_security" class="text-decoration-none text-dark">
+Network & Gateway Security
+</a></h5>
+        <p class="text-muted">Reliable power systems for handling outages, load and distribution issues.</p>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="col-md-4 mb-4">
+      <div class="card shadow border-0 h-100 p-3 text-center">
+        <img src="https://cdn-icons-png.flaticon.com/512/1055/1055687.png"class="mx-auto mb-3"style="width:60px;height:60px;object-fit:contain;">
+        <h5><a href="/endpoint_computing" class="text-decoration-none text-dark">
+End Point Computing, Imaging & Printing
+</a></h5>
+        <p class="text-muted">Tools for monitoring and managing enterprise networks efficiently.</p>
+      </div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="col-md-4 mb-4">
+      <div class="card shadow border-0 h-100 p-3 text-center">
+        <img src="https://cdn-icons-png.flaticon.com/512/2721/2721297.png"class="mx-auto mb-3"style="width:60px;height:60px;object-fit:contain;">
+
+        <h5><a href="/ Infrastructure Software Solutions" class="text-decoration-none text-dark">
+ Infrastructure Software Solutions
+</a></h5>
+        <p class="text-muted">Enterprise software to improve business operations and IT infrastructure.</p>
+      </div>
+    </div>
+
+    <!-- Card 6 -->
+    <div class="col-md-4 mb-4">
+      <div class="card shadow border-0 h-100 p-3 text-center">
+        <img src="https://cdn-icons-png.flaticon.com/512/2910/2910768.png"class="mx-auto mb-3"style="width:60px;height:60px;object-fit:contain;">
+        <h5><a href="/amc_support" class="text-decoration-none text-dark">
+AMC / Break Fix Support Services
+</a></h5>
+        <p class="text-muted">Live communication platform for remote meetings and collaboration.</p>
+      </div>
+    </div>
+
+    <!-- Card 7 -->
+    <div class="col-md-4 mb-4">
+      <div class="card shadow border-0 h-100 p-3 text-center">
+        <img src="https://cdn-icons-png.flaticon.com/512/1995/1995470.png"class="mx-auto mb-3"style="width:60px;height:60px;object-fit:contain;">
+        <h5><a href="/video_surveillance" class="text-decoration-none text-dark">
+Video Surveillance Solutions
+</a></h5>
+        <p class="text-muted">Security monitoring systems for public and private safety.</p>
+      </div>
+    </div>
+
+    <!-- Card 8 -->
+    <div class="col-md-4 mb-4">
+      <div class="card shadow border-0 h-100 p-3 text-center">
+        <img src="https://cdn-icons-png.flaticon.com/512/3659/3659898.png"class="mx-auto mb-3"style="width:60px;height:60px;object-fit:contain;">
+
+        <h5><a href="/Video_Wall" class="text-decoration-none text-dark">
+Video Wall & Digital Signage
+</a></h5>
+        <p class="text-muted">Multi-display systems for advertising and control rooms.</p>
+      </div>
+    </div>
+
+    <!-- Card 9 -->
+    <div class="col-md-4 mb-4">
+      <div class="card shadow border-0 h-100 p-3 text-center">
+        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png"class="mx-auto mb-3"style="width:60px;height:60px;object-fit:contain;">
+        <h5><a href="/smart_classroom" class="text-decoration-none text-dark">
+Smart Classroom Solutions
+</a></h5>
+        <p class="text-muted">Modern technology-based learning environments.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Features -->
+
+<div class="container">
+
+<h2 class="section-title">
+Features
+</h2>
+
+<div class="row text-center">
+
+<div class="col-md-3">
+<h4>📚 Books</h4>
+<p>Manage Books</p>
+</div>
+
+<div class="col-md-3">
+<h4>👨‍🎓 Members</h4>
+<p>Manage Members</p>
+</div>
+
+<div class="col-md-3">
+<h4>📅 Attendance</h4>
+<p>Daily Attendance</p>
+</div>
+
+<div class="col-md-3">
+<h4>🤖 AI Chatbot</h4>
+<p>Smart Assistant</p>
+</div>
+
+</div>
+
+</div>
+
+<!-- CLIENTS -->
+
+<section class="bg-light py-5">
+
+<div class="container">
+
+    <div class="text-center mb-4">
+
+        <h2 class="fw-bold">
+            Our Clients
+        </h2>
+
+    </div>
+
+    <div class="row text-center">
+
+        <div class="col-md-3 mb-3">
+            <img src="{{ url_for('static', filename='images/client1.png') }}"
+                 class="img-fluid"
+                 width="150">
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <img src="{{ url_for('static', filename='images/client2.png') }}"
+                 class="img-fluid"
+                 width="150">
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <img src="{{ url_for('static', filename='images/client3.png') }}"
+                 class="img-fluid"
+                 width="150">
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <img src="{{ url_for('static', filename='images/client4.png') }}"
+                 class="img-fluid"
+                 width="150">
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+
+<!-- Footer -->
+
+<div class="footer">
+<!-- ABOUT + SOLUTIONS PROFESSIONAL SECTION -->
+<div class="container my-4">
+
+  <!-- ABOUT HEADER -->
+  <div class="text-center mb-4">
+    <h3 class="fw-bold">About Us</h3>
+    <p class="text-muted">
+      We provide enterprise-level IT, networking and library management solutions with modern technology.
+    </p>
+  </div>
+
+  <!-- SOLUTIONS ROW -->
+  <div class="row g-3">
+
+    <!-- BOX 1 -->
+    <div class="col-md-6">
+      <div class="card border-0 shadow-sm h-100 p-3">
+
+        <h5 class="fw-semibold mb-3">🖥️ Infrastructure Solutions</h5>
+
+        <ul class="list-unstyled mb-0">
+
+          <li class="mb-2">
+            <a href="/about" class="text-decoration-none text-dark">
+              ➤ About_Us
+            </a>
+          </li>
+
+          <li class="mb-2">
+            <a href="/academic_learning" class="text-decoration-none text-dark">
+              ➤ Academic
+            </a>
+          </li>
+
+          <li class="mb-2">
+            <a href="/analytics" class="text-decoration-none text-dark">
+              ➤ Analytics
+            </a>
+          </li>
+
+          <li class="mb-2">
+            <a href="/dashboard" class="text-decoration-none text-dark">
+              ➤ Dashboard
+            </a>
+          </li>
+
+          <li class="mb-2">
+            <a href="/settings" class="text-decoration-none text-dark">
+              ➤ Settings & System Control
+            </a>
+          </li>
+
+        </ul>
+
+      </div>
+    </div>
+
+    <!-- BOX 2 -->
+    <div class="col-md-6">
+      <div class="card border-0 shadow-sm h-100 p-3">
+
+        <h5 class="fw-semibold mb-3">📚 Library & Digital Services</h5>
+
+        <ul class="list-unstyled mb-0">
+
+          <li class="mb-2">
+            <a href="/return_book" class="text-decoration-none text-dark">
+              ➤ Return Book System
+            </a>
+          </li>
+
+          <li class="mb-2">
+            <a href="/chatbot" class="text-decoration-none text-dark">
+              ➤ AI Chatbot System
+            </a>
+          </li>
+
+          <li class="mb-2">
+            <a href="/service" class="text-decoration-none text-dark">
+              ➤ Services
+            </a>
+          </li>
+
+          <li class="mb-2">
+            <a href="/books" class="text-decoration-none text-dark">
+              ➤ Books Library
+            </a>
+          </li>
+
+          <li class="mb-2">
+            <a href="/careers" class="text-decoration-none text-dark">
+              ➤ Careers
+            </a>
+          </li>
+
+          <li class="mb-2">
+            <a href="/contact" class="text-decoration-none text-dark">
+              ➤ Contact Us
+            </a>
+          </li>
+
+        </ul>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- HOVER EFFECT (Optional CSS) -->
+<style>
+  .card:hover {
+    transform: translateY(-5px);
+    transition: 0.3s;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  }
+</style>
+<!-- Social Media Section -->
+<div class="text-center mt-4 mb-3">
+
+    <h5>Connect with us</h5>
+
+    <!-- Icons (Bootstrap CDN required) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <div class="d-flex justify-content-center gap-4 mt-3">
+
+        <a href="https://www.facebook.com" target="_blank" class="text-primary fs-3">
+            <i class="bi bi-facebook"></i>
+        </a>
+
+        <a href="https://www.instagram.com" target="_blank" class="text-danger fs-3">
+            <i class="bi bi-instagram"></i>
+        </a>
+
+        <a href="https://www.twitter.com" target="_blank" class="text-info fs-3">
+            <i class="bi bi-twitter-x"></i>
+        </a>
+
+        <a href="https://www.linkedin.com" target="_blank" class="text-primary fs-3">
+            <i class="bi bi-linkedin"></i>
+        </a>
+
+        <a href="https://www.youtube.com" target="_blank" class="text-danger fs-3">
+            <i class="bi bi-youtube"></i>
+        </a>
+
+        <a href="mailto:info@library.com" class="text-success fs-3">
+            <i class="bi bi-envelope-fill"></i>
+        </a>
+
+    </div>
+
+</div>
+<h5>Smart Library Management System</h5>
+
+<p>© 2026 All Rights Reserved</p>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

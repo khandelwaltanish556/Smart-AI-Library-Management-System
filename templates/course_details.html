@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+<h2>{{ course.title }}</h2>
+
+<p>{{ course.description }}</p>
+
+<hr>
+
+<h4>🎥 Video Lecture</h4>
+
+<div class="ratio ratio-16x9">
+
+<iframe src="{{ course.video }}"
+allowfullscreen>
+
+</iframe>
+
+</div>
+
+<br>
+
+<a href="/static/notes/{{ course.notes }}"
+class="btn btn-primary">
+
+📄 Download PDF Notes
+
+</a>
+
+<a href="/quiz/{{ course.title }}"
+class="btn btn-warning">
+
+📝 Start Quiz
+
+</a>
+
+{% if course.completed %}
+
+<a href="/certificate/{{ course.title }}"
+class="btn btn-success">
+
+🎓 Download Certificate
+
+</a>
+
+{% else %}
+
+<button class="btn btn-secondary" disabled>
+
+🔒 Complete Course First
+
+</button>
+
+{% endif %}
+
+</div>
+
+{% endblock %}

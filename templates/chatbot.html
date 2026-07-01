@@ -1,0 +1,193 @@
+{% extends "base.html" %}
+
+{% block title %}
+Library AI Chatbot
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid mt-4">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-8">
+
+            <div class="card shadow-lg border-0">
+
+                <div class="card-header bg-primary text-white">
+
+                    <h4 class="mb-0">
+                        🤖 Smart Library Assistant
+                    </h4>
+
+                </div>
+
+                <!-- Chat Messages -->
+
+                <div class="card-body"
+                     id="chat-box"
+                     style="height:500px; overflow-y:auto; background:#f8f9fa;">
+
+                    {% if chats %}
+
+                        {% for chat in chats %}
+
+                            <!-- User Message -->
+
+                            <div class="text-end mb-3">
+
+                                <div class="d-inline-block bg-primary text-white p-3 rounded">
+
+                                    <strong>You</strong><br>
+
+                                    {{ chat.user }}
+
+                                </div>
+
+                            </div>
+
+                            <!-- Bot Message -->
+
+                            <div class="text-start mb-3">
+
+                                <div class="d-inline-block bg-light border p-3 rounded">
+
+                                    <strong>Library AI 🤖</strong><br>
+
+                                    {{ chat.bot }}
+
+                                </div>
+
+                            </div>
+
+                        {% endfor %}
+
+                    {% else %}
+
+                        <div class="text-center text-muted mt-5">
+
+                            <h5>
+                                Welcome to Smart Library Assistant
+                            </h5>
+
+                            <p>
+                                Ask about books, members, attendance,
+                                notices, fines and library information.
+                            </p>
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+                <!-- Input Form -->
+
+                <div class="card-footer">
+
+                    <form action="{{ url_for('chatbot') }}"
+                          method="POST">
+
+                        <div class="input-group">
+
+                            <input
+                                type="text"
+                                name="message"
+                                class="form-control"
+                                placeholder="Type your question..."
+                                required>
+
+                            <button
+                                type="submit"
+                                class="btn btn-primary">
+
+                                Send
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+            <!-- Quick Questions -->
+
+            <div class="card mt-3 shadow border-0">
+
+                <div class="card-body">
+
+                    <h6>
+                        Quick Questions
+                    </h6>
+
+                    <div class="d-flex flex-wrap gap-2">
+
+                        <form method="POST" action="{{ url_for('chatbot') }}">
+                            <input type="hidden" name="message" value="total books">
+                            <button class="btn btn-outline-primary btn-sm">
+                                Total Books
+                            </button>
+                        </form>
+
+                        <form method="POST" action="{{ url_for('chatbot') }}">
+                            <input type="hidden" name="message" value="total members">
+                            <button class="btn btn-outline-success btn-sm">
+                                Total Members
+                            </button>
+                        </form>
+
+                        <form method="POST" action="{{ url_for('chatbot') }}">
+                            <input type="hidden" name="message" value="attendance">
+                            <button class="btn btn-outline-warning btn-sm">
+                                Attendance
+                            </button>
+                        </form>
+
+                        <form method="POST" action="{{ url_for('chatbot') }}">
+                            <input type="hidden" name="message" value="fine">
+                            <button class="btn btn-outline-danger btn-sm">
+                                Fine
+                            </button>
+                        </form>
+
+                        
+
+                        <form method="POST" action="{{ url_for('chatbot') }}">
+                            <input type="hidden" name="message" value="latest notice">
+                            <button class="btn btn-outline-dark btn-sm">
+                                Latest Notice
+                            </button>
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Auto Scroll -->
+
+<script>
+
+window.onload = function(){
+
+    let chatBox =
+    document.getElementById("chat-box");
+
+    chatBox.scrollTop =
+    chatBox.scrollHeight;
+
+}
+
+</script>
+
+{% endblock %}
