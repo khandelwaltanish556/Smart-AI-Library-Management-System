@@ -1,0 +1,11 @@
+book_id,title,author,category,publisher,publish_year,total_copies
+1,Python Programming,John Smith,Programming,TechPub,2024,20
+2,Machine Learning Basics,Andrew Brown,AI,MLBooks,2023,15
+3,Data Science Handbook,David Miller,Data Science,DSPub,2022,12
+4,Deep Learning Guide,Ian Goodfellow,AI,AIPress,2024,10
+5,Flask Web Development,Miguel Grinberg,Web Development,WebPub,2023,18
+6,Database Systems,Elmasri,Database,DBPub,2022,14
+7,Java Complete Reference,Herbert Schildt,Programming,TechPub,2021,16
+8,Clean Code,Robert Martin,Software Engineering,Prentice Hall,2020,10
+9,Computer Networks,Tanenbaum,Networking,NetPub,2021,8
+10,Operating Systems,Galvin,Systems,SysPub,2022,11
