@@ -51,4 +51,4 @@ Joblib
 Clone Repository
 
 ```bash
-git clone https://github.com/USERNAME/Smart-Library-Management-System.git
+git clone https://github.com/Smart-AI-Library-Management-System.git
